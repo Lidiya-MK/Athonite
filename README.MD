@@ -1,3 +1,5 @@
  # Athonite
-I love reading. About a year ago, I found myself reading a particular genre of books that have had a massive impact on me in such a short period of time. I created this project to honor the authors. It is on going but I have included some mockups from my design.
+I have always loved reading, and about a year ago, I discovered a genre of books that profoundly influenced me in a short time. This project is my way of honoring the authors whose work has left such a lasting impact. Although it's still a work in progress, I’ve included some design mockups to offer a glimpse.
+
+
 
