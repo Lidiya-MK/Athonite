@@ -6,7 +6,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  
   const MyApp({super.key});
 
   @override
@@ -34,7 +33,6 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       body: Stack(
         children: [
-          // Background Image with slight blur
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
@@ -54,17 +52,15 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // Larger Athonite Text
                   Text(
                     "Athonite",
                     textAlign: TextAlign.center,
                     style: GoogleFonts.islandMoments(
-                      fontSize: 64, // Increased font size
+                      fontSize: 120,
                       color: const Color(0xFFFFD700),
                     ),
                   ),
-                  const SizedBox(height: 50),
-                  // Username Field with Instrument Sans font
+                  const SizedBox(height: 0), 
                   TextField(
                     decoration: InputDecoration(
                       filled: true,
@@ -80,7 +76,6 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  // Password Field with Instrument Sans font
                   TextField(
                     obscureText: true,
                     decoration: InputDecoration(
@@ -97,26 +92,44 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   const SizedBox(height: 40),
-                  // Smaller Login Button, centered and with Instrument Sans font
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.6, // Smaller button width
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFFFD700),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 16.0),
-                        child: Text(
-                          "Login",
-                          style: GoogleFonts.instrumentSans(
-                            color: Colors.black,
-                            fontSize: 16,
+                  Align(
+                    alignment: Alignment.center,
+                    child: SizedBox(
+                      width: 150,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFFFD700),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0),
                           ),
                         ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10.0),
+                          child: Text(
+                            "Login",
+                            style: GoogleFonts.instrumentSans(
+                              color: Colors.black,
+                              fontSize: 23,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  GestureDetector(
+                    onTap: () {
+                      //button functionality will be added here
+                    },
+                    child: Text(
+                      "Don’t have an account? Sign Up",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.instrumentSans(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: const Color(0xFFCDCBCB),
                       ),
                     ),
                   ),
