@@ -1,7 +1,7 @@
 import '../models/user.dart';
 List<User> sampleUsers = [
   User(
-    profilePic: "user1.png",
+    profilePic: "assets/userSample/user0.jpeg",
     username: "john_doe",
     email: "john@example.com",
     password: "password123",
@@ -9,7 +9,7 @@ List<User> sampleUsers = [
     favoriteStoriesIdList: [1, 3],
   ),
   User(
-    profilePic: "user2.png",
+    profilePic: "assets/userSample/user.jpg",
     username: "mary_smith",
     email: "mary@example.com",
     password: "password456",
@@ -17,7 +17,7 @@ List<User> sampleUsers = [
     favoriteStoriesIdList: [2, 5],
   ),
   User(
-    profilePic: "user3.png",
+    profilePic: "assets/userSample/user.jpg",
     username: "paul_jones",
     email: "paul@example.com",
     password: "password789",
@@ -25,7 +25,7 @@ List<User> sampleUsers = [
     favoriteStoriesIdList: [4],
   ),
   User(
-    profilePic: "user4.png",
+    profilePic: "assets/userSample/user0.jpeg",
     username: "peter_parker",
     email: "peter@example.com",
     password: "password321",
@@ -33,7 +33,7 @@ List<User> sampleUsers = [
     favoriteStoriesIdList: [2],
   ),
   User(
-    profilePic: "user5.png",
+    profilePic: "assets/userSample/user0.jpeg",
     username: "james_brown",
     email: "james@example.com",
     password: "password654",
