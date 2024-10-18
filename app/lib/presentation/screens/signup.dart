@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'signup.dart'; 
 
 void main() {
   runApp(const MyApp());
@@ -12,23 +11,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Athonite Login',
+      title: 'Athonite Signup',
       theme: ThemeData(
         useMaterial3: true,
       ),
-      home: const LoginPage(),
+      home: const SignupPage(),
     );
   }
 }
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SignupPage extends StatefulWidget {
+  const SignupPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignupPage> createState() => _SignupPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/loginsaint.jpg"),
+                image: AssetImage("assets/signupsaint.png"),
                 fit: BoxFit.cover,
                 colorFilter: ColorFilter.mode(
                   Colors.black54,
@@ -58,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
                     textAlign: TextAlign.center,
                     style: GoogleFonts.islandMoments(
                       fontSize: 120,
-                      color: const Color(0xFFFFD700),
+                      color: const Color.fromARGB(255, 255, 255, 255),
                     ),
                   ),
                   const SizedBox(height: 0), 
@@ -92,6 +91,22 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
+                  const SizedBox(height: 20),
+                  TextField(
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: const Color(0xEEEDD3).withOpacity(0.26),
+                      hintText: "Confirm Password",
+                      hintStyle: GoogleFonts.instrumentSans(
+                        color: const Color(0xFFCDCBCB),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: 40),
                   Align(
                     alignment: Alignment.center,
@@ -100,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: ElevatedButton(
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFFFD700),
+                          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0),
                           ),
@@ -108,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           child: Text(
-                            "Login",
+                            "Sign Up",
                             style: GoogleFonts.instrumentSans(
                               color: Colors.black,
                               fontSize: 23,
@@ -122,13 +137,10 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(height: 20),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const SignupPage()),
-                      );
+                      Navigator.pop(context); 
                     },
                     child: Text(
-                      "Don’t have an account? Sign Up",
+                      "Back to Login",
                       textAlign: TextAlign.center,
                       style: GoogleFonts.instrumentSans(
                         fontSize: 20,
