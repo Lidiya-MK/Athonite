@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'signup.dart'; 
+import 'home.dart'; 
 
 void main() {
   runApp(const MyApp());
@@ -98,7 +99,12 @@ class _LoginPageState extends State<LoginPage> {
                     child: SizedBox(
                       width: 150,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const HomeScreen()),
+                          );
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFFFFD700),
                           shape: RoundedRectangleBorder(
