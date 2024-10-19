@@ -7,6 +7,7 @@ import '../../models/saint.dart';
 import '../../data/userSample.dart';
 import '../../data/storySample.dart';
 import '../../data/saintSample.dart';
+import '../screens/story.dart'; 
 
 class CategoryDetailScreen extends StatelessWidget {
   final Category category;
@@ -26,7 +27,6 @@ class CategoryDetailScreen extends StatelessWidget {
       ),
     );
 
-    
     String truncateText(String text, int length) {
       return text.length > length ? '${text.substring(0, length)}...' : text;
     }
@@ -140,64 +140,81 @@ class CategoryDetailScreen extends StatelessWidget {
                     itemCount: category.storyIdList.length,
                     itemBuilder: (context, index) {
                       Story story = sampleStories.firstWhere((s) => s.id == category.storyIdList[index]);
-                      return Container(
-                        decoration: BoxDecoration(
-                          color: Color(0xFFDACFB1).withOpacity(0.26),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Column(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-                              child: Image.asset(
-                                story.storyImage,
-                                height: 130,
-                                width: double.infinity,
-                                fit: BoxFit.cover,
-                              ),
+                      return GestureDetector(
+                        onTap: () {
+                      
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => StoryScreen(story: story),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        truncateText(story.storyTitle, 12), 
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          color: Color(0xFFDACFB1),
-                                        ),
-                                      ),
-                                      const SizedBox(height: 4),
-                                      Text(
-                                        truncateText("${category.name} from ${categorySaint.name}", 30), 
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Color(0xFFDACFB1),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Icon(Icons.favorite, color: Colors.red, size: 16),
-                                      const SizedBox(width: 4),
-                                      Text(
-                                        '${story.favoriteCount}',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Color(0xFFDACFB1),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                          );
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Color(0xFFDACFB1).withOpacity(0.26),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Column(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                                child: Image.asset(
+                                  story.storyImage,
+                                  height: 130,
+                                  width: double.infinity,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                            ),
-                          ],
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            truncateText(story.storyTitle, 12),
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              color: Color(0xFFDACFB1),
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                          ),
+                                          const SizedBox(height: 4),
+                                          Text(
+                                            truncateText("${category.name} from ${categorySaint.name}", 30),
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              color: Color(0xFFDACFB1),
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Row(
+                                      children: [
+                                        Icon(Icons.favorite, color: Colors.red, size: 16),
+                                        const SizedBox(width: 4),
+                                        Text(
+                                          '${story.favoriteCount}',
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Color(0xFFDACFB1),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     },
