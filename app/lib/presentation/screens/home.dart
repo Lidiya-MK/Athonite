@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              'assets/loginsaint.jpg',
+              'assets/homeSaint.png',
               fit: BoxFit.cover,
             ),
           ),
@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           "Browse",
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 40,
+                            fontSize: 30,
                           ),
                         ),
                         const SizedBox(height: 10),
@@ -209,7 +209,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 5),
                         Center(
                           child: Text(
                             "Featured readings of the day",
@@ -219,7 +219,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: List.generate(3, (index) {
@@ -287,7 +287,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.bookmark, color: Color(0xFF898484)),
-            label: 'Bookmarks',
+            label: 'Quotes',
           ),
         ],
         currentIndex: 0,

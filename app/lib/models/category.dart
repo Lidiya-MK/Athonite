@@ -3,12 +3,14 @@ class Category {
   final List<int> storyIdList;
   final String image;
   final String name;
+  final String description;
 
   Category({
     required this.id,
     required this.storyIdList,
     required this.image,
     required this.name,
+    required this.description,
   });
 
   factory Category.fromJson(Map<String, dynamic> json) {
@@ -17,6 +19,7 @@ class Category {
       storyIdList: List<int>.from(json['storyidlist']),
       image: json['image'],
       name: json['name'],
+      description: json['description'], 
     );
   }
 
@@ -26,6 +29,7 @@ class Category {
       'storyidlist': storyIdList,
       'image': image,
       'name': name,
+      'description': description,
     };
   }
 }
