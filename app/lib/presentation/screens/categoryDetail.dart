@@ -8,6 +8,9 @@ import '../../data/userSample.dart';
 import '../../data/storySample.dart';
 import '../../data/saintSample.dart';
 import '../screens/story.dart'; 
+import '../screens/favorites.dart';
+import '../screens/home.dart';
+import '../screens/quotes.dart';
 
 class CategoryDetailScreen extends StatelessWidget {
   final Category category;
@@ -225,30 +228,45 @@ class CategoryDetailScreen extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: Color(0xFFDACFB1)),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite, color: Color(0xFF898484)),
-            label: 'Favorites',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bookmark, color: Color(0xFF898484)),
-            label: 'Quotes',
-          ),
-        ],
-        currentIndex: 0,
-        selectedItemColor: Color(0xFFDACFB1),
-        unselectedItemColor: Color(0xFF898484),
-        showUnselectedLabels: true,
-        onTap: (index) {
-
-        },
-      ),
+     bottomNavigationBar: BottomNavigationBar(
+  backgroundColor: Colors.black,
+  items: const [
+    BottomNavigationBarItem(
+      icon: Icon(Icons.home, color: Color(0xFFDACFB1)),
+      label: 'Home',
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.favorite, color: Color(0xFF898484)),
+      label: 'Favorites',
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.bookmark, color: Color(0xFF898484)),
+      label: 'Quotes',
+    ),
+  ],
+  currentIndex: 0, 
+  selectedItemColor: const Color(0xFFDACFB1),
+  unselectedItemColor: const Color(0xFF898484),
+  showUnselectedLabels: true,
+  onTap: (index) {
+    if (index == 0) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
+      );
+    } else if (index == 1) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const FavoritesScreen()),
+      );
+    } else if (index == 2) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const QuotesScreen()), 
+      );
+    }
+  },
+),
     );
   }
 }
