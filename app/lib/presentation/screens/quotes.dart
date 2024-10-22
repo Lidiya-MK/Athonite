@@ -7,13 +7,21 @@ import '../screens/home.dart';
 import '../../data/userSample.dart';
 import '../../models/user.dart';
 
-class QuotesScreen extends StatelessWidget {
+class QuotesScreen extends StatefulWidget {
   const QuotesScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    User currentUser = sampleUsers[0];
+  _QuotesScreenState createState() => _QuotesScreenState();
+}
 
+class _QuotesScreenState extends State<QuotesScreen> {
+  User currentUser = sampleUsers[0];
+
+
+  List<bool> isFavorited = List.generate(sampleQuotes.length, (index) => false);
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
@@ -32,7 +40,6 @@ class QuotesScreen extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-               
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -88,7 +95,10 @@ class QuotesScreen extends StatelessWidget {
                     physics: const BouncingScrollPhysics(),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: sampleQuotes.map((quote) {
+                      children: sampleQuotes.asMap().entries.map((entry) {
+                        int index = entry.key;
+                        Quote quote = entry.value;
+
                         return Container(
                           width: double.infinity,
                           margin: const EdgeInsets.symmetric(vertical: 10),
@@ -96,33 +106,64 @@ class QuotesScreen extends StatelessWidget {
                             color: const Color(0xFFDACFB1).withOpacity(0.26),
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          child: Row(
+                          child: Stack(
                             children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        quote.quoteContent,
-                                        style: const TextStyle(color: Colors.white),
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 3, 
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(16.0),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            quote.quoteContent,
+                                            style: const TextStyle(color: Colors.white),
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 3, 
+                                          ),
+                                        ],
                                       ),
-                                    ],
+                                    ),
                                   ),
-                                ),
+                                  ClipRRect(
+                                    borderRadius: const BorderRadius.only(
+                                      topRight: Radius.circular(20),
+                                      bottomRight: Radius.circular(20),
+                                    ),
+                                    child: Image.asset(
+                                      quote.quoteImage,
+                                      width: 125,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              ClipRRect(
-                                borderRadius: const BorderRadius.only(
-                                  topRight: Radius.circular(20),
-                                  bottomRight: Radius.circular(20),
-                                ),
-                                child: Image.asset(
-                                  quote.quoteImage,
-                                  width: 125,
-                                  fit: BoxFit.cover,
+                          
+                              Positioned(
+                                bottom: 10,
+                                left: 10,
+                                child: Row(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                      
+                                      },
+                                      child: Icon(
+                                        Icons.favorite,
+                                        color: isFavorited[index] ? Colors.red : const Color(0xFFDACFB1),
+                                        size: 20,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      "${quote.favoriteCount}",
+                                      style: TextStyle(
+                                        color: const Color(0xFFDACFB1).withOpacity(1),
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
