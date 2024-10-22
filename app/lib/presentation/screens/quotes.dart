@@ -6,6 +6,7 @@ import '../screens/favorites.dart';
 import '../screens/home.dart';
 import '../../data/userSample.dart';
 import '../../models/user.dart';
+import '../../data/saintSample.dart';
 
 class QuotesScreen extends StatefulWidget {
   const QuotesScreen({super.key});
@@ -17,8 +18,11 @@ class QuotesScreen extends StatefulWidget {
 class _QuotesScreenState extends State<QuotesScreen> {
   User currentUser = sampleUsers[0];
 
-
   List<bool> isFavorited = List.generate(sampleQuotes.length, (index) => false);
+
+  String getSaintName(int saintId) {
+    return sampleSaints.firstWhere((saint) => saint.id == saintId).name;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +83,6 @@ class _QuotesScreenState extends State<QuotesScreen> {
                   ],
                 ),
                 const SizedBox(height: 20),
-           
                 Center(
                   child: Text(
                     "Quotes",
@@ -94,7 +97,7 @@ class _QuotesScreenState extends State<QuotesScreen> {
                   child: SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: sampleQuotes.asMap().entries.map((entry) {
                         int index = entry.key;
                         Quote quote = entry.value;
@@ -114,13 +117,28 @@ class _QuotesScreenState extends State<QuotesScreen> {
                                     child: Padding(
                                       padding: const EdgeInsets.all(16.0),
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
                                         children: [
                                           Text(
                                             quote.quoteContent,
-                                            style: const TextStyle(color: Colors.white),
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 17,
+                                              
+                                            ),
+                                            textAlign: TextAlign.center,
+                                            maxLines: 3,
                                             overflow: TextOverflow.ellipsis,
-                                            maxLines: 3, 
+                                          ),
+                                          const SizedBox(height: 8),
+                                          Text(
+                                            '- ${getSaintName(quote.saintId)} -',
+                                            style: const TextStyle(
+                                              color: Colors.white70,
+                                              fontStyle: FontStyle.italic,
+                                              fontSize: 16,
+                                            ),
+                                            textAlign: TextAlign.center,
                                           ),
                                         ],
                                       ),
@@ -139,7 +157,6 @@ class _QuotesScreenState extends State<QuotesScreen> {
                                   ),
                                 ],
                               ),
-                          
                               Positioned(
                                 bottom: 10,
                                 left: 10,
@@ -147,7 +164,7 @@ class _QuotesScreenState extends State<QuotesScreen> {
                                   children: [
                                     GestureDetector(
                                       onTap: () {
-                                      
+                                       
                                       },
                                       child: Icon(
                                         Icons.favorite,
@@ -194,7 +211,7 @@ class _QuotesScreenState extends State<QuotesScreen> {
             label: 'Quotes',
           ),
         ],
-        currentIndex: 2, 
+        currentIndex: 2,
         selectedItemColor: const Color(0xFFDACFB1),
         unselectedItemColor: const Color(0xFF898484),
         showUnselectedLabels: true,
