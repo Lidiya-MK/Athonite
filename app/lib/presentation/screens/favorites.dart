@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../data/quoteSample.dart';
+import '../../data/userSample.dart';
 import '../screens/home.dart';
 import '../screens/quotes.dart';
+import '../../models/user.dart';
 
 class FavoritesScreen extends StatelessWidget {
   const FavoritesScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    User currentUser = sampleUsers[0];
+
     return Scaffold(
       body: Stack(
         children: [
@@ -26,18 +30,73 @@ class FavoritesScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                
-                Text(
-                  "Favorites",
-                  style: GoogleFonts.islandMoments(
-                    color: const Color(0xFFFFD700),
-                    fontSize: 100,
-                  ),
-                  textAlign: TextAlign.center,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Athonite",
+                      style: GoogleFonts.islandMoments(
+                        color: const Color(0xFFFFD700),
+                        fontSize: 40,
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Column(
+                          children: [
+                            CircleAvatar(
+                              backgroundImage: AssetImage(currentUser.profilePic),
+                              radius: 16.5,
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              currentUser.username,
+                              style: const TextStyle(
+                                color: Color(0xFFCDCBCB),
+                                fontSize: 10,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(width: 8),
+                        const Icon(
+                          Icons.logout,
+                          color: Color(0xFFCDCBCB),
+                          size: 30,
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 20),
+
+      
+                Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                       const Icon(
+                        Icons.favorite,
+                        color: Color(0xFFFFD700), 
+                        size: 60, 
+                      ),
+                       const SizedBox(width: 0),
+                      Text(
+                        "Favorites",
+                        style: GoogleFonts.islandMoments(
+                          color: const Color(0xFFFFD700),
+                          fontSize: 100,
+                        ),
+                      ),
+                     
+                     
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+
                
                 Expanded(
                   child: ListView.builder(
@@ -120,15 +179,14 @@ class FavoritesScreen extends StatelessWidget {
           if (index == 0) {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => HomeScreen()),
+              MaterialPageRoute(builder: (context) => const HomeScreen()),
             );
           } else if (index == 2) {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => QuotesScreen()),
+              MaterialPageRoute(builder: (context) => const QuotesScreen()),
             );
           }
-        
         },
       ),
     );
