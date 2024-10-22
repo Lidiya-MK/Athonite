@@ -160,59 +160,59 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         Container(
-  width: 350,
-  height: 160,
-  margin: const EdgeInsets.symmetric(vertical: 20),
-  decoration: BoxDecoration(
-    color: const Color(0xFFDACFB1).withOpacity(0.26),
-    borderRadius: BorderRadius.circular(20),
-  ),
-  child: Row(
-    children: [
-      Expanded(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                "Quote of the day",
-                style: TextStyle(
-                  color: Color(0xFFDACFB1),
-                  fontSize: 25,
-                ),
-              ),
-              const SizedBox(height: 8),
-              Expanded(
-                child: Text(
-                  quoteOfTheDay.quoteContent,
-                  style: const TextStyle(color: Colors.white),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 3, 
-                ),
-              ),
-              Text(
-                saintForQuote.name,
-                style: const TextStyle(color: Color(0xFFDACFB1)),
-              ),
-            ],
-          ),
-        ),
-      ),
-      ClipRRect(
-        borderRadius: const BorderRadius.only(
-          topRight: Radius.circular(20),
-          bottomRight: Radius.circular(20),
-        ),
-        child: Image.asset(
-          quoteOfTheDay.quoteImage,
-          width: 125,
-          fit: BoxFit.cover,
-        ),
-      ),
-    ],
-  ),
-),
+                                    width: 350,
+                                    height: 160,
+                                    margin: const EdgeInsets.symmetric(vertical: 20),
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xFFDACFB1).withOpacity(0.26),
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(16.0),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                const Text(
+                                                  "Quote of the day",
+                                                  style: TextStyle(
+                                                    color: Color(0xFFDACFB1),
+                                                    fontSize: 25,
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 8),
+                                                Expanded(
+                                                  child: Text(
+                                                    quoteOfTheDay.quoteContent,
+                                                    style: const TextStyle(color: Colors.white),
+                                                    overflow: TextOverflow.ellipsis,
+                                                    maxLines: 3, 
+                                                  ),
+                                                ),
+                                                Text(
+                                                  saintForQuote.name,
+                                                  style: const TextStyle(color: Color(0xFFDACFB1)),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        ClipRRect(
+                                          borderRadius: const BorderRadius.only(
+                                            topRight: Radius.circular(20),
+                                            bottomRight: Radius.circular(20),
+                                          ),
+                                          child: Image.asset(
+                                            quoteOfTheDay.quoteImage,
+                                            width: 125,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
 
                         const Center(
                           child: Text(
@@ -317,7 +317,7 @@ class _HomeScreenState extends State<HomeScreen> {
     } else if (index == 1) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const FavoritesScreen()),
+        MaterialPageRoute(builder: (context) => FavoritesScreen()),
       );
     } else if (index == 2) {
       Navigator.pushReplacement(

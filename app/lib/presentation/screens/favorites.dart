@@ -1,17 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../data/quoteSample.dart';
-import '../../data/userSample.dart';
-import '../screens/home.dart';
-import '../screens/quotes.dart';
+import '../../models/quote.dart';
+import '../../models/story.dart'; 
 import '../../models/user.dart';
+import '../screens/home.dart';
+import '../../data/userSample.dart';
+import '../../data/quoteSample.dart'; 
+import '../../data/storySample.dart';
+import '../screens/story.dart';
+import '../screens/quotes.dart';
 
-class FavoritesScreen extends StatelessWidget {
-  const FavoritesScreen({Key? key}) : super(key: key);
+class FavoritesScreen extends StatefulWidget {
+  final User currentUser = sampleUsers[0];
+
+  @override
+  _FavoritesScreenState createState() => _FavoritesScreenState();
+}
+
+class _FavoritesScreenState extends State<FavoritesScreen> {
+  int currentQuoteIndex = 0;
+
+  void nextQuote() {
+    setState(() {
+      currentQuoteIndex = (currentQuoteIndex + 1) % widget.currentUser.favoriteQuotesIdList.length;
+    });
+  }
+
+  void previousQuote() {
+    setState(() {
+      currentQuoteIndex = (currentQuoteIndex - 1 + widget.currentUser.favoriteQuotesIdList.length) % widget.currentUser.favoriteQuotesIdList.length;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    User currentUser = sampleUsers[0];
+    final List<Quote> favoriteQuotes = sampleQuotes
+        .where((quote) => widget.currentUser.favoriteQuotesIdList.contains(quote.id))
+        .toList();
+    
+    final List<Story> favoriteStories = sampleStories
+        .where((story) => widget.currentUser.favoriteStoriesIdList.contains(story.id))
+        .toList();
 
     return Scaffold(
       body: Stack(
@@ -30,116 +59,145 @@ class FavoritesScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-               
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    Icon(Icons.favorite, color: Colors.red),
+                    SizedBox(width: 8),
                     Text(
-                      "Athonite",
-                      style: GoogleFonts.islandMoments(
-                        color: const Color(0xFFFFD700),
-                        fontSize: 40,
+                      "Favorites",
+                      style: TextStyle(
+                        fontSize: 24,
+                        color: Color(0xFFDACFB1),
                       ),
-                    ),
-                    Row(
-                      children: [
-                        Column(
-                          children: [
-                            CircleAvatar(
-                              backgroundImage: AssetImage(currentUser.profilePic),
-                              radius: 16.5,
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              currentUser.username,
-                              style: const TextStyle(
-                                color: Color(0xFFCDCBCB),
-                                fontSize: 10,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(width: 8),
-                        const Icon(
-                          Icons.logout,
-                          color: Color(0xFFCDCBCB),
-                          size: 30,
-                        ),
-                      ],
                     ),
                   ],
                 ),
-                const SizedBox(height: 20),
-
-      
+                SizedBox(height: 20),
                 Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                       const Icon(
-                        Icons.favorite,
-                        color: Color(0xFFFFD700), 
-                        size: 60, 
-                      ),
-                       const SizedBox(width: 0),
-                      Text(
-                        "Favorites",
-                        style: GoogleFonts.islandMoments(
-                          color: const Color(0xFFFFD700),
-                          fontSize: 100,
-                        ),
-                      ),
-                     
-                     
-                    ],
+                  child: Text(
+                    "Quotes",
+                    style: GoogleFonts.islandMoments(
+                      color: Colors.white,
+                      fontSize: 50,
+                    ),
                   ),
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: 20),
 
-               
+             
+                if (favoriteQuotes.isNotEmpty)
+                  Container(
+                    padding: const EdgeInsets.all(16.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.8),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Icon(Icons.close, size: 16, color: Colors.black),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          favoriteQuotes[currentQuoteIndex].quoteContent,
+                          style: TextStyle(color: Colors.black, fontSize: 16),
+                        ),
+                        SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.arrow_left, color: Colors.black),
+                              onPressed: previousQuote,
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.arrow_right, color: Colors.black),
+                              onPressed: nextQuote,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                SizedBox(height: 30),
+                Text(
+                  "Readings",
+                  style: GoogleFonts.islandMoments(
+                    color: Colors.white,
+                    fontSize: 50,
+                  ),
+                ),
+                SizedBox(height: 20),
                 Expanded(
-                  child: ListView.builder(
-                    itemCount: sampleQuotes.length,
+                  child: GridView.builder(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.7,
+                      crossAxisSpacing: 16,
+                      mainAxisSpacing: 16,
+                    ),
+                    itemCount: favoriteStories.length,
                     itemBuilder: (context, index) {
-                      final quote = sampleQuotes[index];
-                      return Card(
-                        color: const Color(0xFFDACFB1).withOpacity(0.26),
-                        margin: const EdgeInsets.symmetric(vertical: 10),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Row(
+                      Story story = favoriteStories[index];
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => StoryScreen(story: story),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Color(0xFFDACFB1).withOpacity(0.26),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Column(
                             children: [
                               ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
+                                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
                                 child: Image.asset(
-                                  quote.quoteImage,
-                                  width: 80,
-                                  height: 80,
+                                  story.storyImage,
+                                  height: 130,
+                                  width: double.infinity,
                                   fit: BoxFit.cover,
                                 ),
                               ),
-                              const SizedBox(width: 16),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
-                                      quote.quoteContent,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            story.storyTitle,
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              color: Color(0xFFDACFB1),
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                          ),
+                                          SizedBox(height: 4),
+                                          Text(
+                                            'Favorites: ${story.favoriteCount}',
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              color: Color(0xFFDACFB1),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      overflow: TextOverflow.ellipsis,
                                     ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      "Favorites: ${quote.favoriteCount}",
-                                      style: const TextStyle(
-                                        color: Color(0xFFDACFB1),
-                                        fontSize: 12,
-                                      ),
-                                    ),
+                                    Icon(Icons.favorite, color: Colors.red, size: 16),
                                   ],
                                 ),
                               ),
@@ -159,11 +217,11 @@ class FavoritesScreen extends StatelessWidget {
         backgroundColor: Colors.black,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: Color(0xFF898484)),
+            icon: Icon(Icons.home, color: Color(0xFFDACFB1)),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite, color: Color(0xFFDACFB1)),
+            icon: Icon(Icons.favorite, color: Color(0xFF898484)),
             label: 'Favorites',
           ),
           BottomNavigationBarItem(
@@ -171,7 +229,7 @@ class FavoritesScreen extends StatelessWidget {
             label: 'Quotes',
           ),
         ],
-        currentIndex: 1, 
+        currentIndex: 1,
         selectedItemColor: const Color(0xFFDACFB1),
         unselectedItemColor: const Color(0xFF898484),
         showUnselectedLabels: true,
@@ -181,6 +239,8 @@ class FavoritesScreen extends StatelessWidget {
               context,
               MaterialPageRoute(builder: (context) => const HomeScreen()),
             );
+          } else if (index == 1) {
+           
           } else if (index == 2) {
             Navigator.pushReplacement(
               context,

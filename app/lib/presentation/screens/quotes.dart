@@ -224,7 +224,7 @@ class _QuotesScreenState extends State<QuotesScreen> {
           } else if (index == 1) {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => const FavoritesScreen()),
+              MaterialPageRoute(builder: (context) =>  FavoritesScreen()),
             );
           } else if (index == 2) {
             Navigator.pushReplacement(

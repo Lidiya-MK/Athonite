@@ -257,7 +257,7 @@ class CategoryDetailScreen extends StatelessWidget {
     } else if (index == 1) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const FavoritesScreen()),
+        MaterialPageRoute(builder: (context) =>  FavoritesScreen()),
       );
     } else if (index == 2) {
       Navigator.pushReplacement(
