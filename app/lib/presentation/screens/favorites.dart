@@ -256,13 +256,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                             maxLines: 1,
                                           ),
                                           SizedBox(height: 4),
-                                          Text(
-                                            'Favorites: ${story.favoriteCount}',
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                              color: Color(0xFFDACFB1),
-                                            ),
-                                          ),
+                                         
                                           Text(
                                             "${getCategoryForStory(story.id)} from ${getSaintForStory(story.id)}",
                                             style: TextStyle(color: Color(0xFFDACFB1), fontSize: 12),
@@ -270,7 +264,19 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                         ],
                                       ),
                                     ),
-                                    Icon(Icons.favorite, color: Colors.red, size: 16),
+                                    Row(
+                                      children: [
+                                              Icon(Icons.favorite, color: Colors.red, size: 16),
+                                               Text(
+                                            ' ${story.favoriteCount}',
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              color: Color(0xFFDACFB1),
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                  
                                   ],
                                 ),
                               ),
