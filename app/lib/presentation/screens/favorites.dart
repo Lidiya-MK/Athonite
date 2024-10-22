@@ -118,7 +118,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                     Text(
                                       favoriteQuotes[currentQuoteIndex].quoteContent,
                                       style: const TextStyle(
-                                        color: Colors.black,
+                                        color: Colors.white,
                                         fontSize: 17,
                                       ),
                                       textAlign: TextAlign.center,
@@ -129,7 +129,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                     Text(
                                       '- ${getSaintForQuote(favoriteQuotes[currentQuoteIndex].id)} -',
                                       style: const TextStyle(
-                                        color: Colors.black,
+                                        color: Colors.white,
                                         fontStyle: FontStyle.italic,
                                         fontSize: 16,
                                       ),
@@ -179,11 +179,11 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                           child: Row(
                             children: [
                               IconButton(
-                                icon: Icon(Icons.arrow_left, color: Colors.black),
+                                icon: Icon(Icons.arrow_left, color: Color(0xFFDACFB1).withOpacity(1)),
                                 onPressed: previousQuote,
                               ),
                               IconButton(
-                                icon: Icon(Icons.arrow_right, color: Colors.black),
+                                icon: Icon(Icons.arrow_right, color: Color(0xFFDACFB1).withOpacity(1)),
                                 onPressed: nextQuote,
                               ),
                             ],
