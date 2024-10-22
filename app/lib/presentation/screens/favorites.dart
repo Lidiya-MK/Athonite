@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../models/quote.dart';
-import '../../models/story.dart'; 
+import '../../models/story.dart';
 import '../../models/user.dart';
 import '../screens/home.dart';
 import '../../data/userSample.dart';
-import '../../data/quoteSample.dart'; 
+import '../../data/quoteSample.dart';
 import '../../data/storySample.dart';
 import '../screens/story.dart';
 import '../screens/quotes.dart';
+import '../../data/categorySample.dart';
+import '../../data/saintSample.dart'; 
 
 class FavoritesScreen extends StatefulWidget {
   final User currentUser = sampleUsers[0];
@@ -37,7 +39,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     final List<Quote> favoriteQuotes = sampleQuotes
         .where((quote) => widget.currentUser.favoriteQuotesIdList.contains(quote.id))
         .toList();
-    
+
     final List<Story> favoriteStories = sampleStories
         .where((story) => widget.currentUser.favoriteStoriesIdList.contains(story.id))
         .toList();
@@ -85,40 +87,107 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                   ),
                 ),
                 SizedBox(height: 20),
-
-             
                 if (favoriteQuotes.isNotEmpty)
                   Container(
-                    padding: const EdgeInsets.all(16.0),
+                    width: double.infinity,
+                    margin: const EdgeInsets.symmetric(vertical: 10),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.8),
-                      borderRadius: BorderRadius.circular(10),
+                      color: const Color(0xFFDACFB1).withOpacity(0.26),
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    child: Stack(
                       children: [
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Icon(Icons.close, size: 16, color: Colors.black),
+                        Positioned(
+                          top: 10,
+                          left: 10,
+                          child: IconButton(
+                            icon: Icon(Icons.close, color: Colors.black),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
                         ),
-                        SizedBox(height: 8),
-                        Text(
-                          favoriteQuotes[currentQuoteIndex].quoteContent,
-                          style: TextStyle(color: Colors.black, fontSize: 16),
-                        ),
-                        SizedBox(height: 20),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            IconButton(
-                              icon: Icon(Icons.arrow_left, color: Colors.black),
-                              onPressed: previousQuote,
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      favoriteQuotes[currentQuoteIndex].quoteContent,
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 17,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                      maxLines: 3,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      '- ${getSaintForQuote(favoriteQuotes[currentQuoteIndex].id)} -',
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontStyle: FontStyle.italic,
+                                        fontSize: 16,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
-                            IconButton(
-                              icon: Icon(Icons.arrow_right, color: Colors.black),
-                              onPressed: nextQuote,
+                            ClipRRect(
+                              borderRadius: const BorderRadius.only(
+                                topRight: Radius.circular(20),
+                                bottomRight: Radius.circular(20),
+                              ),
+                              child: Image.asset(
+                                favoriteQuotes[currentQuoteIndex].quoteImage,
+                                width: 125,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ],
+                        ),
+                        Positioned(
+                          bottom: 10,
+                          left: 10,
+                          child: Row(
+                            children: [
+                              IconButton(
+                                icon: Icon(Icons.favorite, color: Colors.red),
+                                onPressed: () {
+                                },
+                              ),
+                              const SizedBox(width: 4),
+                              Text(
+                                "${favoriteQuotes[currentQuoteIndex].favoriteCount}",
+                                style: TextStyle(
+                                  color: const Color(0xFFDACFB1).withOpacity(1),
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 10,
+                          right: 10,
+                          child: Row(
+                            children: [
+                              IconButton(
+                                icon: Icon(Icons.arrow_left, color: Colors.black),
+                                onPressed: previousQuote,
+                              ),
+                              IconButton(
+                                icon: Icon(Icons.arrow_right, color: Colors.black),
+                                onPressed: nextQuote,
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -194,6 +263,10 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                               color: Color(0xFFDACFB1),
                                             ),
                                           ),
+                                          Text(
+                                            "${getCategoryForStory(story.id)} from ${getSaintForStory(story.id)}",
+                                            style: TextStyle(color: Color(0xFFDACFB1), fontSize: 12),
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -240,7 +313,6 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
               MaterialPageRoute(builder: (context) => const HomeScreen()),
             );
           } else if (index == 1) {
-           
           } else if (index == 2) {
             Navigator.pushReplacement(
               context,
@@ -250,5 +322,46 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         },
       ),
     );
+  }
+
+  String getCategoryForQuote(int quoteId) {
+ 
+    for (var category in sampleCategories) {
+      if (category.storyIdList.contains(quoteId)) {
+        return category.name;
+      }
+    }
+    return "Unknown Category";
+  }
+
+
+  String getSaintForQuote(int quoteId) {
+  
+    for (var saint in sampleSaints) {
+      if (saint.quoteIdList.contains(quoteId)) {
+        return saint.name;
+      }
+    }
+    return "Unknown Saint";
+  }
+
+ 
+  String getCategoryForStory(int storyId) {
+    for (var category in sampleCategories) {
+      if (category.storyIdList.contains(storyId)) {
+        return category.name;
+      }
+    }
+    return "Unknown Category";
+  }
+
+
+  String getSaintForStory(int storyId) {
+    for (var saint in sampleSaints) {
+      if (saint.storyIdList.contains(storyId)) {
+        return saint.name;
+      }
+    }
+    return "Unknown Saint";
   }
 }

@@ -6,7 +6,7 @@ List<User> sampleUsers = [
     email: "john@example.com",
     password: "password123",
     favoriteQuotesIdList: [1, 2],
-    favoriteStoriesIdList: [1, 3],
+    favoriteStoriesIdList: [1, 3, 5],
   ),
   User(
     profilePic: "assets/userSample/user.jpg",
