@@ -28,7 +28,7 @@ class FavoritesScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Header
+               
                 Text(
                   "Favorites",
                   style: GoogleFonts.islandMoments(
@@ -38,7 +38,7 @@ class FavoritesScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 20),
-                // Favorite Quotes List
+               
                 Expanded(
                   child: ListView.builder(
                     itemCount: sampleQuotes.length,
